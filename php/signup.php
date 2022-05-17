@@ -15,7 +15,7 @@
         else{
             $id = rand(time(),10000000);
             $name = $_POST['name'];
-            $password = $_POST['password'];
+            $password =  password_hash($_POST['password'], PASSWORD_DEFAULT);
             $status = "offline";
             $newquery = "insert into users(WZ_Id, Name, Email, Password, Status) VALUES ('$id','$name','$email','$password','$status')";
             if (mysqli_query($con, $newquery)) {
