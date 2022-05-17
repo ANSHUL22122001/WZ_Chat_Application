@@ -6,7 +6,7 @@ session_start();
     include 'connection.php';
 
     $userdetail = $_POST['userdetail'];
-    $password = $_POST['password'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
     if(!empty($userdetail) && !empty($password)){
         if(filter_var($userdetail, FILTER_VALIDATE_EMAIL)){
