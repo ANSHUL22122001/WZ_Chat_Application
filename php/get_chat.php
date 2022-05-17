@@ -17,22 +17,23 @@
     $check = mysqli_query($con, $query);
     if($check){
         if (mysqli_num_rows($check)) {
+
+            $ciphering = "AES-128-CTR";
+            $options = 0;
+            $decryption_iv = '1234567891011121';
+            $decryption_key = "Password";
+            
             while($row = mysqli_fetch_assoc($check)){
                 $time = substr($row['Time'], 11);
                 $time = substr($time,0,5);
                 
-            
-            
-
+                $msg = openssl_decrypt($row['Msg'], $ciphering, $decryption_key, $options, $decryption_iv);
                 if($row['SenderId'] == $sender_id){
                     $name = $row['SenderName'];
-                    $msg = $row['Msg'];
                     $output = $output.'<div id="user2">'.$msg.'</div>';
-
                 }
                 else{
                     $name = $row['SenderName'];
-                    $msg = $row['Msg'];
                     $output = $output.'<div id="user1">'.$msg.'</div>';
                 }
 
